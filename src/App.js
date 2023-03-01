@@ -1,56 +1,66 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import KeplerGl from 'kepler.gl';
+import { addDataToMap } from 'kepler.gl/actions';
 import './App.css';
 
+const mapData = {
+  datasets: {
+    info: {
+      label: 'Sample Taxi Trips in New York City',
+      id: 'test_trip_data'
+    },
+    data: {
+      fields: [
+        {name: 'tpep_pickup_datetime', format: 'YYYY-M-D H:m:s', type: 'timestamp'},
+        {name: 'pickup_longitude', format: '', type: 'real'},
+        {name: 'pickup_latitude', format: '', type: 'real'}
+      ],
+      rows: [
+        ['2015-01-15 19:05:39 +00:00', 103.801770, 1.273607],
+        ['2015-01-15 19:05:39 +00:00', 103.822990, 1.275041],
+      ]
+    },
+  },
+  options: {
+    centerMap: true,
+    readOnly: false,
+    keepExistingConfig: false
+  },
+  info: {
+    title: 'Taro and Blue',
+    description: 'This is my map'
+  },
+  config: {
+    visState: {
+      filters: [
+        {
+          id: 'me',
+          dataId: 'test_trip_data',
+          name: 'tpep_pickup_datetime',
+          type: 'timeRange',
+          enlarged: true
+        }
+      ]
+    }
+  },
+};
+
 function App() {
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(addDataToMap(mapData));
+  }, [dispatch])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      <KeplerGl
+        id="foo"
+        mapboxApiAccessToken="pk.eyJ1IjoidWJlcmRhdGEiLCJhIjoidGllX1gxUSJ9.gElUooDF7u51guCQREmAhg"
+        width={1200}
+        height={800}
+      />
     </div>
   );
 }

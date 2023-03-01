@@ -1,8 +1,28 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import keplerGlReducer from 'kepler.gl/reducers';
+import { taskMiddleware } from 'react-palm/tasks';
 
-export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
+const reducers = combineReducers({
+  keplerGl: keplerGlReducer.initialState({
+    uiState: {
+      readOnly: true,
+      mapControls: {
+        visibleLayers: {
+          show: false
+        },
+        mapLegend: {
+          show: false,
+          active: false
+        },
+        toggle3d: {
+          show: false
+        },
+        splitMap: {
+          show: false
+        }
+      }
+    }
+  }),
 });
+
+export default createStore(reducers, {}, applyMiddleware(taskMiddleware));
