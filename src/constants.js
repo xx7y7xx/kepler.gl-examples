@@ -45,7 +45,3 @@ export const initMapToLoad = {
     }
   },
 };
-
-export const newPoints = [
-  [103.82482, 1.26473],
-];

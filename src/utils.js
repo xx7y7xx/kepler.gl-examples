@@ -1,8 +1,8 @@
 import KeplerGlSchema from 'kepler.gl/schemas';
 
-import { pointLayerDatasetId, newPoints } from './constants';
+import { pointLayerDatasetId } from './constants';
 
-export const getNewMapToLoad = (fooState) => {
+export const getNewMapToLoad = (fooState, newPoints) => {
   // save current map data and config
   const { datasets, config } = KeplerGlSchema.save(fooState);
 
