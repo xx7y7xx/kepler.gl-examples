@@ -1,5 +1,6 @@
 export const pointLayerDatasetId = 'point-layer-dataset-id';
-export const polygonLayerDatasetId = 'polygon-layer-dataset-id';
+export const POLYGON_DATASET_ID = 'polygon-layer-dataset-id';
+export const POLYGON_LAYER_ID = 'polygon-layer-id';
 
 export const pointLayerFieldsDefinition = [
   { name: 'longitude', format: '', type: 'real' },
@@ -8,7 +9,7 @@ export const pointLayerFieldsDefinition = [
 
 export const polygonLayerFieldsDefinition = [
   { name: 'name', format: '', type: 'string' },
-  { name: 'polygon', format: '', type: 'geojson' }
+  { name: 'mall_polygon', format: '', type: 'geojson' }
 ];
 
 export const initMapToLoad = {
@@ -26,11 +27,11 @@ export const initMapToLoad = {
       ]
     },
   }, {
-    info: { label: 'Polygon data', id: polygonLayerDatasetId },
+    info: { label: 'Polygon data', id: POLYGON_DATASET_ID },
     data: {
       fields: polygonLayerFieldsDefinition,
       rows: [
-        ['VivoCity', '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"coordinates":[[[103.8198,1.2655],[103.8199,1.2631],[103.8234,1.2631],[103.8235,1.2655],[103.8198,1.2655]]],"type":"Polygon"}}]}'],
+        ['VivoCity', '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{"fillColor":[255, 0, 0]},"geometry":{"coordinates":[[[103.8198,1.2655],[103.8199,1.2631],[103.8234,1.2631],[103.8235,1.2655],[103.8198,1.2655]]],"type":"Polygon"}}]}'],
       ]
     },
   }],
@@ -41,7 +42,27 @@ export const initMapToLoad = {
   },
   config: {
     visState: {
-      filters: []
+      filters: [],
+      layers: [
+        {
+          id: POLYGON_LAYER_ID,
+          type: 'geojson',
+          config: {
+            dataId: POLYGON_DATASET_ID,
+            label: 'Polygon Layer',
+            // color: [67, 143, 69], // #438F45
+            columns: {
+              geojson: 'mall_polygon',
+            },
+            isVisible: true,
+            visConfig: {
+              // fill color is from geojson feature.properties.fillColor
+              filled: true,
+            },
+          },
+          
+        }
+      ]
     }
   },
 };
