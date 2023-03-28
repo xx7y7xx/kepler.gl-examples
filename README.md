@@ -1,4 +1,4 @@
-# kepler.gl v2.5.5
+# kepler.gl v2.5.5 GeoJSON layer the polygon fill color is based on feature's `properties.fillColor`
 
 ```
 npm i
