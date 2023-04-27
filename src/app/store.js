@@ -1,6 +1,11 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import keplerGlReducer from 'kepler.gl/reducers';
 import { taskMiddleware } from 'react-palm/tasks';
+import { createLogger } from 'redux-logger';
+
+const logger = createLogger({
+  collapsed: true,
+});
 
 const reducers = combineReducers({
   keplerGl: keplerGlReducer.initialState({
@@ -25,4 +30,4 @@ const reducers = combineReducers({
   }),
 });
 
-export default createStore(reducers, {}, applyMiddleware(taskMiddleware));
+export default createStore(reducers, {}, applyMiddleware(taskMiddleware, logger));
