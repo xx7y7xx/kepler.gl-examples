@@ -89,9 +89,9 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={handleMoveToCityCenter}>Move to city center</button>
-      <button onClick={handleLoadPointData}>Load point data</button>
-      <button onClick={handleLoadPolygonData}>Load polygon data</button>
+      <button onClick={handleMoveToCityCenter}>1. Move to city center</button>
+      <button onClick={handleLoadPointData}>2. Load point data</button>
+      <button onClick={handleLoadPolygonData}>3. Load polygon data</button>
       <div className='keplergl-wrapper'>
         <KeplerGl
           id={keplerglMapId}
